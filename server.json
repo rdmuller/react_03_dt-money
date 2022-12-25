@@ -15,6 +15,14 @@
             "category": "Alimentação",
             "price": 30,
             "createdAt": "2022-12-21T21:12:01.147Z"
+        },
+        {
+            "id": 3,
+            "description": "Curso",
+            "type": "outcome",
+            "category": "Educação",
+            "price": 1350,
+            "createdAt": "2022-12-21T20:53:01.147Z"
         }
     ]
 }
