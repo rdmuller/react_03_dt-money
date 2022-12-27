@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
-import { Transactions } from "../pages/Transactions";
+import { api } from "../lib/axios";
 
 export interface Transaction {
     id: number;
@@ -12,6 +12,7 @@ export interface Transaction {
 
 interface TransactionContextType {
     transactions: Transaction[];
+    fetchTransactions: (query?: string) => Promise<void>;
 }
 
 interface TransactionsProviderProps {
@@ -23,24 +24,38 @@ export const TransactionsContext = createContext({} as TransactionContextType);
 export function TransactionsProvider({ children }: TransactionsProviderProps) {
     const [transactions, setTransactions] = useState<Transaction[]>([]);
 
-    async function loadTransactions() {
-        /*fetch("http://localhost:3000/trancations")
-        .then(response => response.json())
-        .then(data => {
-            setTransactions(data);
-        });*/
-        const response = await fetch("http://localhost:3000/trancations");
-        const data = await response.json();
+    async function fetchTransactions(query?: string) {
+        // forma de fazer via fetch
+        /*const url = new URL("http://localhost:3000/transactions");
 
-        setTransactions(data);
+        if (query) {
+            url.searchParams.append("q", query);
+        }
+        //fetch("url")
+        //.then(response => response.json())
+        //.then(data => {
+        //    setTransactions(data);
+        //});
+        const response = await fetch(url);
+        const data = await response.json();
+        setTransactions(data);*/
+
+        // via axios
+        const response = await api.get('transactions', {
+            params: {
+                q: query,
+            }
+        });
+
+        setTransactions(response.data);
     }
 
     useEffect(() => {
-        loadTransactions();
+        fetchTransactions();
     }, []);
 
     return (
-        <TransactionsContext.Provider value={{ transactions }}>
+        <TransactionsContext.Provider value={{ transactions, fetchTransactions }}>
             {children}
         </TransactionsContext.Provider>
     );

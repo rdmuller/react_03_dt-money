@@ -51,9 +51,14 @@ export const Content = styled(Dialog.Content)`
         margin-top: 1.5rem;
         cursor: pointer;
 
-        &:hover {
+        &:not(:disabled):hover {
             background-color: ${props => props.theme["green-700"]};
             transition: 0.2s;
+        }
+
+        &:disabled {
+            cursor: not-allowed;
+            opacity: 0.6;
         }
     }
 `;
