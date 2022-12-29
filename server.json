@@ -1,28 +1,44 @@
 {
-    "transactions": [
-        {
-            "id": 1,
-            "description": "Desenvolvimento de sites",
-            "type": "income",
-            "category": "Venda",
-            "price": 14000,
-            "createdAt": "2022-12-21T20:53:01.147Z"
-        },
-        {
-            "id": 2,
-            "description": "Hamburguer",
-            "type": "outcome",
-            "category": "Alimentação",
-            "price": 30,
-            "createdAt": "2022-12-21T21:12:01.147Z"
-        },
-        {
-            "id": 3,
-            "description": "Curso",
-            "type": "outcome",
-            "category": "Educação",
-            "price": 1350,
-            "createdAt": "2022-12-21T20:53:01.147Z"
-        }
-    ]
+  "transactions": [
+    {
+      "id": 1,
+      "description": "Desenvolvimento de sites",
+      "type": "income",
+      "category": "Venda",
+      "price": 14000,
+      "createdAt": "2022-12-21T20:53:01.147Z"
+    },
+    {
+      "id": 2,
+      "description": "Hamburguer",
+      "type": "outcome",
+      "category": "Alimentação",
+      "price": 30,
+      "createdAt": "2022-12-21T21:12:01.147Z"
+    },
+    {
+      "id": 3,
+      "description": "Curso",
+      "type": "outcome",
+      "category": "Educação",
+      "price": 1350,
+      "createdAt": "2022-12-21T20:53:01.147Z"
+    },
+    {
+      "category": "Saúde",
+      "description": "Consulta médica",
+      "price": 40,
+      "type": "outcome",
+      "createdAt": "2022-12-28T10:07:06.455Z",
+      "id": 4
+    },
+    {
+      "category": "Casa",
+      "description": "Mercado",
+      "price": 150,
+      "type": "outcome",
+      "createdAt": "2022-12-28T10:22:50.923Z",
+      "id": 5
+    }
+  ]
 }

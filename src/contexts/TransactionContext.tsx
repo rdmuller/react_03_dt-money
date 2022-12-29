@@ -10,9 +10,17 @@ export interface Transaction {
     createdAt: string;
 }
 
+interface CreateTransactionInput {
+    description: string;
+    type: "income" | "outcome";
+    category: string;
+    price: number;
+}
+
 interface TransactionContextType {
     transactions: Transaction[];
     fetchTransactions: (query?: string) => Promise<void>;
+    createTransaction: (data: CreateTransactionInput) => Promise<void>;
 }
 
 interface TransactionsProviderProps {
@@ -40,9 +48,11 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
         const data = await response.json();
         setTransactions(data);*/
 
-        // via axios
+        // via axios // json server: https://github.com/typicode/json-server
         const response = await api.get('transactions', {
             params: {
+                _sort: "createdAt",
+                _order: "desc",
                 q: query,
             }
         });
@@ -50,12 +60,27 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
         setTransactions(response.data);
     }
 
+    async function createTransaction(data: CreateTransactionInput) {
+        //await api.post("transactions", {...data}); // poderia ser desta forma
+
+        const { category, description, price, type } = data;
+        const response = await api.post("transactions", { 
+            category,
+            description,
+            price,
+            type,
+            createdAt: new Date(),
+        });
+
+        setTransactions(state => [response.data, ...state])
+    }
+
     useEffect(() => {
         fetchTransactions();
     }, []);
 
     return (
-        <TransactionsContext.Provider value={{ transactions, fetchTransactions }}>
+        <TransactionsContext.Provider value={{ transactions, fetchTransactions, createTransaction }}>
             {children}
         </TransactionsContext.Provider>
     );
